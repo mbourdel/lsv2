@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 10:39:54 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/04 15:40:11 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/04 15:49:06 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ struct					s_file
 typedef struct s_env	t_env;
 struct					s_env
 {
+	t_avdir				*lst_dir;
 	DIR					*dir;
 	t_file				*file;
 	t_option			option;

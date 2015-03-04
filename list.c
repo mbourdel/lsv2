@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 10:37:56 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/04 15:50:53 by mbourdel         ###   ########.fr       */
+/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
+/*   Updated: 2015/03/04 16:20:10 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			main(int ac, char **av, char **envp)
+void			ft_lst_directory(const char *directory, t_env *env)
 {
-	t_env	env;
-
-	env.dir = NULL;
-	env.lst_dir = NULL;
-	ft_seek_option(&env, ac, av);
-	if (env.option.error || !*envp)
-		return (0);
+	t_avdir		*lst_dir;
 	
-	return (0);
+	lst_dir->nxt = env->lst_dir;
+	lst_dir->name = ft_strdup(directory);
+	env->lst_dir;
+	return ;
 }
