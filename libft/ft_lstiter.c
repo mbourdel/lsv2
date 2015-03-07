@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2015/01/02 20:07:46 by mbourdel          #+#    #+#             */
+/*   Updated: 2015/01/02 22:56:58 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+void		ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	t_avdir		*lst_dir;
-
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
+	if (!lst || !f)
+		return ;
+	while (lst)
+	{
+		(*f)(lst);
+		lst = lst->next;
+	}
 	return ;
 }

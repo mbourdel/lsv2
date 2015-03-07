@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 10:39:54 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/04 15:49:06 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/07 19:01:39 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,13 @@ struct					s_env
 {
 	t_avdir				*lst_dir;
 	DIR					*dir;
+	t_dirent			*dirent;
 	t_file				*file;
 	t_option			option;
 };
 
+void					ft_error(t_env env);
 void					ft_seek_option(t_env *env, int ac, char **av);
 void					ft_lst_directory(const char *directory, t_env *env);
+void					ft_lets_go(t_env *env);
 #endif

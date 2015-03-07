@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2015/01/02 19:45:25 by mbourdel          #+#    #+#             */
+/*   Updated: 2015/01/02 22:31:12 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+void		ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
 {
-	t_avdir		*lst_dir;
-
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
+	if (!alst || !del)
+		return ;
+	del((*alst)->content, (*alst)->content_size);
+	free(*alst);
+	*alst = NULL;
 	return ;
 }

@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_strclr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/06 17:28:29 by mbourdel          #+#    #+#             */
+/*   Updated: 2014/11/11 13:50:33 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+void	ft_strclr(char *s)
 {
-	t_avdir		*lst_dir;
-
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	if (s)
+		ft_bzero(s, ft_strlen(s));
 }

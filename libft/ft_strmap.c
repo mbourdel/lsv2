@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/11 12:17:54 by mbourdel          #+#    #+#             */
+/*   Updated: 2014/11/11 19:11:08 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+char	*ft_strmap(const char *s, char (*f)(char))
 {
-	t_avdir		*lst_dir;
+	char	*ret;
+	size_t	retlen;
+	int		i;
 
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	i = 0;
+	if (!s || !f)
+		return (NULL);
+	retlen = ft_strlen(s);
+	ret = ft_memalloc(retlen + 1);
+	while (*s)
+	{
+		ret[i++] = f(*s);
+		s++;
+	}
+	return (ret);
 }

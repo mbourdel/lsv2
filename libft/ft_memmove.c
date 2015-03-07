@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/05 20:06:38 by mbourdel          #+#    #+#             */
+/*   Updated: 2014/11/11 18:20:08 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	t_avdir		*lst_dir;
+	void	*tmp;
 
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	tmp = ft_memalloc(n + 1);
+	tmp = ft_memcpy(tmp, src, n);
+	dest = ft_memcpy(dest, tmp, n);
+	free(tmp);
+	return (dest);
 }

@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 10:37:56 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 16:48:18 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/07 19:12:16 by mbourdel          #+#    #+#             */
+/*   Updated: 2014/11/12 18:01:43 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-int			main(int ac, char **av, char **envp)
+static int	ft_isblanc(int c)
 {
-	t_env	env;
+	return (c == ' ' || c == '\t' || c == '\n');
+}
 
-	if (!*envp)
+char		*ft_strtrim(char const *s)
+{
+	unsigned int	i;
+	size_t			len;
+	char			*ret;
+
+	if (!s)
 		return (0);
-	env.dir = NULL;
-	env.lst_dir = NULL;
-	ft_seek_option(&env, ac, av);
-	if (env.option.error)
-		return (0);
-	if (env.lst_dir == NULL)
-		ft_lets_go(&env);
-	else
-		while (env.lst_dir)
-			ft_lets_go(&env);
-	return (0);
+	i = 0;
+	while (ft_isblanc(s[i]))
+		i++;
+	len = ft_strlen(s) - 1;
+	while (len > i && ft_isblanc(s[len]))
+		len--;
+	if (len < i)
+		return (ret = ft_strdup (""));
+	return (ret = ft_strsub(s, i, len - (size_t)i + 1));
 }

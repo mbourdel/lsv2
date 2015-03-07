@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_ftoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2015/01/20 14:03:16 by mbourdel          #+#    #+#             */
+/*   Updated: 2015/01/20 15:01:12 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+char			*ft_ftoa(float nbr)
 {
-	t_avdir		*lst_dir;
+	int			entire;
+	float		floating;
+	char		*res;
 
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	entire = (int)nbr;
+	floating = nbr - (float)entire;
+	while (floating != (int)floating)
+		floating *= 10;
+	res = ft_strjoin(ft_strjoin(ft_itoa(entire), "."), ft_itoa((int)floating));
+	return (res);
 }

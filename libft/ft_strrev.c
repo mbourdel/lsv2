@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/11 15:34:16 by mbourdel          #+#    #+#             */
+/*   Updated: 2014/11/11 15:53:48 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+char	*ft_strrev(char *s)
 {
-	t_avdir		*lst_dir;
+	char	*rev;
+	int		i;
+	int		x;
 
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	i = 0;
+	x = 0;
+	if (!(rev = ft_memalloc(ft_strlen(s))))
+		return (NULL);
+	while (s[i])
+	{
+		rev[i] = s[i];
+		i++;
+	}
+	i--;
+	while (i >= 0)
+		s[x++] = rev[i--];
+	free(rev);
+	return (s);
 }

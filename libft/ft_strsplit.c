@@ -1,24 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/07 13:06:24 by mbourdel          #+#    #+#             */
+/*   Updated: 2015/01/02 18:38:48 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+char	**ft_strsplit(const char *s, char c)
 {
-	t_avdir		*lst_dir;
+	char	**ret;
+	size_t	i;
+	size_t	j;
+	size_t	len;
 
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	if (!s || !c)
+		return (0);
+	ret = ft_memalloc(ft_strlen(s) + 1);
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			i++;
+		else
+		{
+			len = 0;
+			while (s[i + len] && (s[i + len] != c))
+				len++;
+			ret[j++] = ft_strsub(s, i, len);
+			i = i + len;
+		}
+	}
+	ret[j] = 0;
+	return (ret);
 }

@@ -1,24 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/04 12:03:23 by mbourdel          #+#    #+#             */
+/*   Updated: 2015/01/17 11:37:13 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	t_avdir		*lst_dir;
+	char		*dest;
+	const char	*s;
+	size_t		n;
+	size_t		dlen;
 
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	dest = dst;
+	s = src;
+	n = size;
+	while (n-- != 0 && *dest != '\0')
+		dest++;
+	dlen = dest - dst;
+	n = size - dlen;
+	if (n == 0)
+		return (dlen + ft_strlen(s));
+	while (*s)
+	{
+		if (n != 1)
+		{
+			*dest++ = *s;
+			n--;
+		}
+		s++;
+	}
+	*dest = '\0';
+	return (dlen + (s - src));
 }

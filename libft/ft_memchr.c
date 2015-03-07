@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/04 19:06:18 by mbourdel          #+#    #+#             */
+/*   Updated: 2015/01/02 17:55:35 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	t_avdir		*lst_dir;
+	size_t			i;
+	unsigned char	*str;
+	unsigned char	d;
 
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	d = (unsigned char)c;
+	i = 0;
+	if (!s)
+		return (NULL);
+	str = (unsigned char*)s;
+	while (str[i] != d && i < (n - 1))
+		i++;
+	if (str[i] == d && n != 0)
+		return (str += i);
+	return (NULL);
 }

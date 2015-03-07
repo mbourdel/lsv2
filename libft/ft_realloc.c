@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/21 17:10:29 by mbourdel          #+#    #+#             */
+/*   Updated: 2014/11/22 16:54:49 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+void	*ft_realloc(void *ptr, size_t size)
 {
-	t_avdir		*lst_dir;
+	void	*ret;
 
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	if (ptr == NULL)
+		return (NULL);
+	if (size == 0)
+		return (ptr);
+	ret = malloc(sizeof(ptr) * (ft_strlen((char*)ptr) + size));
+	ft_bzero(ret, ft_strlen((char*)ptr) + size);
+	ret = ft_memcpy(ret, ptr, ft_strlen((char*)ptr));
+	if (ret == NULL)
+		return (ptr);
+	free(ptr);
+	return (ret);
 }

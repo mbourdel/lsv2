@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 11:44:18 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/04 15:38:46 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/07 15:56:42 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@ static void		ft_error_option(const char str, t_option *option)
 	ft_putstr("usage: ls ");
 	ft_putendl("[-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]");
 	option->error = 1;
-	return ;
-}
-
-static void		ft_which_one(const char *str, t_option *option)
-{
-	if (str[1] == '-' && !str[2])
-		option->no = 1;
-	else if (str[1] == '-' && str[2] && !option->no)
-		ft_error_option('-', option);
-	else if (str[1])
-		ft_attribute_option(str + 1, option);
 	return ;
 }
 
@@ -53,6 +42,17 @@ static void		ft_attribute_option(const char *str, t_option *option)
 		if (str[1] && !option->error)
 			ft_attribute_option(str + 1, option);
 	}
+	return ;
+}
+
+static void		ft_which_one(const char *str, t_option *option)
+{
+	if (str[1] == '-' && !str[2])
+		option->no = 1;
+	else if (str[1] == '-' && str[2] && !option->no)
+		ft_error_option('-', option);
+	else if (str[1])
+		ft_attribute_option(str + 1, option);
 	return ;
 }
 
@@ -84,6 +84,7 @@ void			ft_seek_option(t_env *env, int ac, char **av)
 		else
 		{
 			env->option.no = 1;
+			ft_lst_directory(av[i], env);
 		}
 		ac--;
 		i++;

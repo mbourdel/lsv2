@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 18:49:19 by mbourdel         ###   ########.fr       */
+/*   Created: 2014/11/04 14:04:36 by mbourdel          #+#    #+#             */
+/*   Updated: 2014/11/12 18:00:56 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-void			ft_lst_directory(const char *directory, t_env *env)
+char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 {
-	t_avdir		*lst_dir;
+	size_t		i;
+	char		*ps1;
+	char		*ps2;
+	int			len;
 
-	lst_dir = (t_avdir*)malloc(sizeof(t_avdir));	
-	lst_dir->nxt = env->lst_dir;
-	lst_dir->name = ft_strdup(directory);
-	env->lst_dir = lst_dir;
-	return ;
+	if (*s2 == '\0')
+		return ((char *)s1);
+	ps1 = (char *)s1;
+	ps2 = (char *)s2;
+	len = ft_strlen(ps2);
+	i = 0;
+	while (ps1[i] != '\0' && (i + len) <= n)
+	{
+		if (ft_strncmp(s1 + i, s2, len) == 0)
+		{
+			return (ps1 + i);
+		}
+		i++;
+	}
+	return (NULL);
 }
