@@ -6,9 +6,15 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 10:39:54 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 19:01:39 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/10 16:00:50 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#if ((defined __APPLE__) && (!defined MTIME))
+# define MTIME st_mtimespec.tv_sec
+#elif ((defined __linux) && (!defined MTIME))
+# define MTIME st_mtime
+#endif
 
 #ifndef FT_LS_H
 # define FT_LS_H
@@ -19,6 +25,7 @@
 # include <dirent.h>
 # include <pwd.h>
 # include <errno.h>
+# include <stdio.h>
 
 typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
@@ -62,8 +69,9 @@ struct					s_env
 	t_option			option;
 };
 
-void					ft_error(t_env env);
+void					ft_error(char *str);
 void					ft_seek_option(t_env *env, int ac, char **av);
 void					ft_lst_directory(const char *directory, t_env *env);
+void					ft_sort_files(t_env *env);
 void					ft_lets_go(t_env *env);
 #endif

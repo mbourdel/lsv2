@@ -6,13 +6,13 @@
 #    By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/03/07 15:27:28 by mbourdel          #+#    #+#              #
-#    Updated: 2015/03/07 19:00:40 by mbourdel         ###   ########.fr        #
+#    Updated: 2015/03/10 14:20:51 by mbourdel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
 
-SRC = ft_ls.c option.c list.c error.c lets_go.c
+SRC = ft_ls.c option.c list.c error.c lets_go.c sort_files.c
 
 OBJ = $(SRC:.c=.o)
 
