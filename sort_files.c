@@ -6,13 +6,13 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/10 14:23:26 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/10 14:23:30 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/16 14:48:34 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	ft_switch_file(t_env *env)
+static void		ft_switch_file(t_env *env)
 {
 	t_dirent		*tmp_d;
 	t_stat			tmp_s;
@@ -26,7 +26,7 @@ static void	ft_switch_file(t_env *env)
 	return ;
 }
 
-static int	ft_count_file(t_file *file)
+static int		ft_count_file(t_file *file)
 {
 	int		i;
 
@@ -53,11 +53,11 @@ static void		ft_sort_nm_ls(t_env *env)
 			if (env->option.r1)
 			{
 				if (ft_strcmp(env->file->dirent->d_name,
-					env->file->nxt->dirent->d_name) > 0)
+					env->file->nxt->dirent->d_name) < 0)
 					ft_switch_file(env);
 			}
 			else if (ft_strcmp(env->file->dirent->d_name,
-				env->file->nxt->dirent->d_name) < 0)
+				env->file->nxt->dirent->d_name) > 0)
 				ft_switch_file(env);
 			env->file = env->file->nxt;
 		}
@@ -92,7 +92,7 @@ static void		ft_sort_t_ls(t_env *env)
 	return ;
 }
 
-void		ft_sort_files(t_env *env)
+void			ft_sort_files(t_env *env)
 {
 	ft_sort_nm_ls(env);
 	if (env->option.t)

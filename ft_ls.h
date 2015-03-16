@@ -6,13 +6,13 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 10:39:54 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/10 16:00:50 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/16 14:50:38 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#if ((defined __APPLE__) && (!defined MTIME))
+#if ((defined __APPLE__) && (!defined FT_LS_H))
 # define MTIME st_mtimespec.tv_sec
-#elif ((defined __linux) && (!defined MTIME))
+#elif ((defined __linux) && (!defined FT_LS_H))
 # define MTIME st_mtime
 #endif
 
@@ -64,7 +64,6 @@ struct					s_env
 {
 	t_avdir				*lst_dir;
 	DIR					*dir;
-	t_dirent			*dirent;
 	t_file				*file;
 	t_option			option;
 };
@@ -73,5 +72,7 @@ void					ft_error(char *str);
 void					ft_seek_option(t_env *env, int ac, char **av);
 void					ft_lst_directory(const char *directory, t_env *env);
 void					ft_sort_files(t_env *env);
+void					ft_destroy_them_all(t_env *env);
+void					ft_print_output(t_env *env);
 void					ft_lets_go(t_env *env);
 #endif

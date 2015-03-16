@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 16:47:30 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/10 16:35:48 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/16 14:45:32 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,20 @@
 static int		ft_put_one_file(t_env *env)
 {
 	t_file		*nfile;
+	char		*tmp;
 
 	nfile = (t_file*)malloc(sizeof(t_file));
 	if ((nfile->dirent = readdir(env->dir)) == NULL)
+	{
+		free(nfile);
 		return (0);
-	if (!(stat(env->dirent->d_name, &nfile->stat)))
-		ft_error(env->dirent->d_name);
+	}
+	tmp = ft_strjoin("./", nfile->dirent->d_name);
+	stat(tmp, &nfile->stat);
+	free(tmp);
 	nfile->nxt = env->file;
 	nfile->pvs = NULL;
-	if (env->file)
+	if (env->file != NULL)
 		env->file->pvs = nfile;
 	env->file = nfile;
 	return (1);
@@ -40,25 +45,16 @@ static void		ft_get_the_files(t_env *env)
 
 void			ft_lets_go(t_env *env)
 {
-	//t_avdir		*tmp = NULL;
-
-	if (env->lst_dir != NULL)
+	if (!(env->dir = opendir(env->lst_dir->name)))
 	{
-		if (!(env->dir = opendir(env->lst_dir->name)))
-			ft_error(env->lst_dir->name);
-		//ft_putendl("ya");
-		//tmp = env->lst_dir->nxt;
-		//ft_putendl("yo");
-		//free(env->lst_dir);
-		//env->lst_dir = tmp;
-//	}
-//	else
-//	{
-		else
-		{
-			ft_get_the_files(env);
-			ft_sort_files(env);
-		}
+		ft_error(env->lst_dir->name);
+		env->lst_dir = env->lst_dir->nxt;
+	}
+	else
+	{
+		ft_get_the_files(env);
+		ft_sort_files(env);
+		ft_print_output(env);
 	}
 	return ;
 }
