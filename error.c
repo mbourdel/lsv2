@@ -22,6 +22,6 @@ void		ft_error(char *str)
 	}
 	else
 		perror(str);
-	errno = NULL;
+	errno = 0;
 	return ;
 }

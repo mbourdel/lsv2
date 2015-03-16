@@ -20,10 +20,7 @@ static int		ft_put_one_file(t_env *env)
 	if ((nfile->dirent = readdir(env->dir)) == NULL)
 		return (0);
 	if (!(stat(env->dirent->d_name, &nfile->stat)))
-	{
-		ft_putstr("--YA--");
 		ft_error(env->dirent->d_name);
-	}
 	nfile->nxt = env->file;
 	nfile->pvs = NULL;
 	if (env->file)
@@ -36,11 +33,8 @@ static void		ft_get_the_files(t_env *env)
 {
 	env->file = NULL;
 	while (ft_put_one_file(env))
-		if (errno)
-		{
-			ft_putstr("----YO----");
-			ft_error(NULL);
-		}
+		if (env->file == NULL)
+			return ;
 	return ;
 }
 
@@ -57,15 +51,14 @@ void			ft_lets_go(t_env *env)
 		//ft_putendl("yo");
 		//free(env->lst_dir);
 		//env->lst_dir = tmp;
-	}
-	else
-		env->dir = opendir(".");
-//	if (env->dir == NULL)
-//		ft_error(*env);
+//	}
 //	else
 //	{
-		ft_get_the_files(env);
-		ft_sort_files(env);
-//	}
+		else
+		{
+			ft_get_the_files(env);
+			ft_sort_files(env);
+		}
+	}
 	return ;
 }

@@ -89,5 +89,7 @@ void			ft_seek_option(t_env *env, int ac, char **av)
 		ac--;
 		i++;
 	}
+	if (env->lst_dir == NULL)
+		ft_lst_directory(".", env);
 	return ;
 }
