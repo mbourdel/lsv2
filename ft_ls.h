@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 10:39:54 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/16 14:50:38 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/17 13:40:49 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include "libft/libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <grp.h>
+# include <uuid/uuid.h>
+# include <time.h>
 # include <dirent.h>
 # include <pwd.h>
 # include <errno.h>
@@ -30,6 +33,17 @@
 typedef struct dirent	t_dirent;
 typedef struct stat		t_stat;
 typedef struct passwd	t_passwd;
+
+typedef struct s_long	t_long;
+struct					s_long
+{
+	char				*right;
+	char				*nb;
+	char				*uid;
+	char				*gid;
+	char				*size;
+	char				*date;
+};
 
 typedef struct s_opt	t_option;
 struct					s_opt
@@ -74,5 +88,6 @@ void					ft_lst_directory(const char *directory, t_env *env);
 void					ft_sort_files(t_env *env);
 void					ft_destroy_them_all(t_env *env);
 void					ft_print_output(t_env *env);
+void					ft_option_l(t_env *env);
 void					ft_lets_go(t_env *env);
 #endif

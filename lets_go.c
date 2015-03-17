@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 16:47:30 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/16 14:45:32 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/17 15:03:19 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int		ft_put_one_file(t_env *env)
 {
 	t_file		*nfile;
 	char		*tmp;
+	char		*tmp2;
 
 	nfile = (t_file*)malloc(sizeof(t_file));
 	if ((nfile->dirent = readdir(env->dir)) == NULL)
@@ -23,9 +24,12 @@ static int		ft_put_one_file(t_env *env)
 		free(nfile);
 		return (0);
 	}
-	tmp = ft_strjoin("./", nfile->dirent->d_name);
-	stat(tmp, &nfile->stat);
+	tmp2 = ft_strjoin(env->lst_dir->name, "/");
+	tmp = ft_strjoin(tmp2, nfile->dirent->d_name);
+	if((stat(tmp, &nfile->stat)) == -1)
+		ft_error(NULL);
 	free(tmp);
+	free(tmp2);
 	nfile->nxt = env->file;
 	nfile->pvs = NULL;
 	if (env->file != NULL)

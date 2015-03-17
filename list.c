@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/16 16:19:17 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/17 09:39:21 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ static void		ft_sort_directory(t_env *env)
 		nxt = tmp->nxt;
 		while (nxt)
 		{
-			if (ft_strcmp(tmp->name, nxt->name) > 0)
+			if (ft_strcmp(tmp->name, nxt->name) > 0 && !env->option.r1)
+				ft_lst_swap(&tmp, &nxt);
+			if (ft_strcmp(tmp->name, nxt->name) < 0 && env->option.r1)
 				ft_lst_swap(&tmp, &nxt);
 			nxt = nxt->nxt;
 		}
