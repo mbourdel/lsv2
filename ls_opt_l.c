@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/17 10:07:07 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/17 15:21:59 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/17 17:29:29 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void		ft_print_ls_l(t_env *env, t_long lol)
 	ft_putstr("\t");
 	ft_putstr(lol.date);
 	ft_putstr(" ");
-	ft_putendl(env->file->dirent->d_name);
+	ft_putendl(env->file->name);
 	return ;
 }
 
@@ -90,7 +90,7 @@ void			ft_option_l(t_env *env)
 	tmp = env->file;
 	while (env->file != NULL)
 	{
-		if (env->file->dirent->d_name[0] != '.' || env->option.a)
+		if (env->file->name[0] != '.' || env->option.a)
 		{
 			pwuid = getpwuid(env->file->stat.st_uid);
 			lol.uid = ft_strdup(pwuid->pw_name);

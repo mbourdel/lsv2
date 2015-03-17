@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/10 14:23:26 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/16 14:48:34 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/17 17:29:22 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 static void		ft_switch_file(t_env *env)
 {
-	t_dirent		*tmp_d;
+	char			*tmp_d;
 	t_stat			tmp_s;
 
-	tmp_d = env->file->dirent;
+	tmp_d = ft_strdup(env->file->name);
 	tmp_s = env->file->stat;
-	env->file->dirent = env->file->nxt->dirent;
+	free(env->file->name);
+	env->file->name = ft_strdup(env->file->nxt->name);
 	env->file->stat = env->file->nxt->stat;
-	env->file->nxt->dirent = tmp_d;
+	free(env->file->nxt->name);
+	env->file->nxt->name = ft_strdup(tmp_d);
 	env->file->nxt->stat = tmp_s;
+	free(tmp_d);
 	return ;
 }
 
@@ -52,12 +55,12 @@ static void		ft_sort_nm_ls(t_env *env)
 		{
 			if (env->option.r1)
 			{
-				if (ft_strcmp(env->file->dirent->d_name,
-					env->file->nxt->dirent->d_name) < 0)
+				if (ft_strcmp(env->file->name,
+					env->file->nxt->name) < 0)
 					ft_switch_file(env);
 			}
-			else if (ft_strcmp(env->file->dirent->d_name,
-				env->file->nxt->dirent->d_name) > 0)
+			else if (ft_strcmp(env->file->name,
+				env->file->nxt->name) > 0)
 				ft_switch_file(env);
 			env->file = env->file->nxt;
 		}

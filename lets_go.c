@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 16:47:30 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/17 15:03:19 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/17 18:48:52 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 static int		ft_put_one_file(t_env *env)
 {
 	t_file		*nfile;
+	t_dirent	*dirent;
 	char		*tmp;
 	char		*tmp2;
 
 	nfile = (t_file*)malloc(sizeof(t_file));
-	if ((nfile->dirent = readdir(env->dir)) == NULL)
+	if ((dirent = readdir(env->dir)) == NULL)
 	{
 		free(nfile);
 		return (0);
 	}
+	nfile->name = ft_strdup(dirent->d_name);
 	tmp2 = ft_strjoin(env->lst_dir->name, "/");
-	tmp = ft_strjoin(tmp2, nfile->dirent->d_name);
+	tmp = ft_strjoin(tmp2, nfile->name);
 	if((stat(tmp, &nfile->stat)) == -1)
 		ft_error(NULL);
 	free(tmp);
@@ -49,10 +51,15 @@ static void		ft_get_the_files(t_env *env)
 
 void			ft_lets_go(t_env *env)
 {
+	t_avdir		*tmp;
+
 	if (!(env->dir = opendir(env->lst_dir->name)))
 	{
 		ft_error(env->lst_dir->name);
-		env->lst_dir = env->lst_dir->nxt;
+		tmp = env->lst_dir->nxt;
+		free(env->lst_dir->name);
+		free(env->lst_dir);
+		env->lst_dir = tmp;
 	}
 	else
 	{

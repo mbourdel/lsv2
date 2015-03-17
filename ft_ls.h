@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 10:39:54 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/17 13:40:49 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/17 18:10:11 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@ typedef struct s_avdir	t_avdir;
 struct					s_avdir
 {
 	char				*name;
+	int					err;
 	t_avdir				*nxt;
 };
 
 typedef struct s_file	t_file;
 struct					s_file
 {
-	t_dirent			*dirent;
+	char				*name;
 	t_stat				stat;
 	t_file				*pvs;
 	t_file				*nxt;
