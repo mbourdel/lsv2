@@ -6,7 +6,7 @@
 #    By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/12 18:06:02 by mbourdel          #+#    #+#              #
-#    Updated: 2015/01/20 15:04:01 by mbourdel         ###   ########.fr        #
+#    Updated: 2015/03/19 14:00:28 by mbourdel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC +=	ft_strnstr.c ft_strrchr.c ft_strrev.c ft_strsplit.c
 SRC +=	ft_strstr.c ft_strsub.c ft_strtrim.c ft_tolower.c
 SRC +=	ft_toupper.c ft_realloc.c ft_isnbr.c ft_lstnew.c
 SRC +=	ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c
-SRC +=	ft_lstmap.c ft_ftoa.c
+SRC +=	ft_lstmap.c ft_ftoa.c ft_intlen.c
 
 OBJ = $(SRC:.c=.o)
 
