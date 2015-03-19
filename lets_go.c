@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 16:47:30 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/17 18:48:52 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/19 14:36:32 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,21 @@ static int		ft_put_one_file(t_env *env)
 	char		*tmp;
 	char		*tmp2;
 
-	nfile = (t_file*)malloc(sizeof(t_file));
 	if ((dirent = readdir(env->dir)) == NULL)
-	{
-		free(nfile);
 		return (0);
-	}
+	if ((dirent->d_name[0] == '.') && !env->option.a)
+		return (2);
+	nfile = (t_file*)malloc(sizeof(t_file));
 	nfile->name = ft_strdup(dirent->d_name);
-	tmp2 = ft_strjoin(env->lst_dir->name, "/");
-	tmp = ft_strjoin(tmp2, nfile->name);
-	if((stat(tmp, &nfile->stat)) == -1)
-		ft_error(NULL);
-	free(tmp);
-	free(tmp2);
+	if (env->option.l || env->option.t)
+	{
+		tmp2 = ft_strjoin(env->lst_dir->name, "/");
+		tmp = ft_strjoin(tmp2, nfile->name);
+		if ((stat(tmp, &nfile->stat)) == -1)
+			ft_error(NULL);
+		free(tmp);
+		free(tmp2);
+	}
 	nfile->nxt = env->file;
 	nfile->pvs = NULL;
 	if (env->file != NULL)
@@ -42,10 +44,25 @@ static int		ft_put_one_file(t_env *env)
 
 static void		ft_get_the_files(t_env *env)
 {
+	int			dot;
+
 	env->file = NULL;
-	while (ft_put_one_file(env))
-		if (env->file == NULL)
+	env->option.max.len_link = 0;
+	env->option.max.len_size = 0;
+	while ((dot = ft_put_one_file(env)) != 0)
+	{
+		if ((env->file == NULL) && !dot)
 			return ;
+		if (dot == 1)
+		{
+			dot = ft_intlen(env->file->stat.st_nlink);
+			if (env->option.max.len_link < dot)
+				env->option.max.len_link = dot;
+			dot = ft_intlen(env->file->stat.st_size);
+			if (env->option.max.len_size < dot)
+				env->option.max.len_size = dot;
+		}
+	}
 	return ;
 }
 

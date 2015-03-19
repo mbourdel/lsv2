@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/16 10:25:36 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/17 17:25:46 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/19 09:56:26 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ static void	ft_print_nm(t_env *env)
 
 static void	ft_print_l(t_env *env)
 {
-/*	while (env->file->nxt != NULL)
-	{
-		if ((!env->option.a && env->file->dirent->d_name[0] != '.')
-					|| env->option.a)
-			ft_putendl(env->file->dirent->d_name);
-		env->file = env->file->nxt;
-	}
-	if ((!env->option.a && env->file->dirent->d_name[0] != '.')
-				|| env->option.a)
-		ft_putendl(env->file->dirent->d_name);*/
 	ft_option_l(env);
 	return ;
 }

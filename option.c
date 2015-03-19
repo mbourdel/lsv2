@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 11:44:18 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/07 15:56:42 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/19 16:18:47 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			ft_seek_option(t_env *env, int ac, char **av)
 	ac--;
 	while (av[i] && ac)
 	{
-		if (av[i][0] == '-' && !env->option.no)
+		if (av[i][0] == '-' && !env->option.no && av[i][1])
 			ft_which_one(av[i], &env->option);
 		else
 		{

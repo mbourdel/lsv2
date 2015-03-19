@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/10 14:23:26 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/17 17:29:22 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/19 12:30:05 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ static void		ft_sort_t_ls(t_env *env)
 	{
 		while (env->file->nxt)
 		{
-			if (env->file->stat.MTIME > env->file->nxt->stat.MTIME
+			if (env->file->stat.MTIME < env->file->nxt->stat.MTIME
 				&& !env->option.r1)
 				ft_switch_file(env);
-			else if (env->file->stat.MTIME < env->file->nxt->stat.MTIME
+			else if (env->file->stat.MTIME > env->file->nxt->stat.MTIME
 				&& env->option.r1)
 				ft_switch_file(env);
 			env->file = env->file->nxt;

@@ -6,14 +6,16 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 10:39:54 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/17 18:10:11 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/19 15:19:26 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #if ((defined __APPLE__) && (!defined FT_LS_H))
 # define MTIME st_mtimespec.tv_sec
+# include <uuid/uuid.h>
 #elif ((defined __linux) && (!defined FT_LS_H))
 # define MTIME st_mtime
+# include <pwd.h>
 #endif
 
 #ifndef FT_LS_H
@@ -23,7 +25,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <grp.h>
-# include <uuid/uuid.h>
 # include <time.h>
 # include <dirent.h>
 # include <pwd.h>
@@ -45,12 +46,20 @@ struct					s_long
 	char				*date;
 };
 
+typedef struct s_maxs	t_maxs;
+struct					s_maxs
+{
+	int					len_link;
+	int					len_size;
+};
+
 typedef struct s_opt	t_option;
 struct					s_opt
 {
 	int					no;
 	int					a;
 	int					l;
+	t_maxs				max;
 	int					t;
 	int					r1;
 	int					r2;
