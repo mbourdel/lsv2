@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 10:39:54 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/19 15:19:26 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/21 16:52:42 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <uuid/uuid.h>
 #elif ((defined __linux) && (!defined FT_LS_H))
 # define MTIME st_mtime
-# include <pwd.h>
 #endif
 
 #ifndef FT_LS_H
@@ -49,8 +48,10 @@ struct					s_long
 typedef struct s_maxs	t_maxs;
 struct					s_maxs
 {
-	int					len_link;
-	int					len_size;
+	size_t				len_link;
+	size_t				len_size;
+	size_t				len_uid;
+	size_t				len_gid;
 };
 
 typedef struct s_opt	t_option;
@@ -97,7 +98,12 @@ void					ft_seek_option(t_env *env, int ac, char **av);
 void					ft_lst_directory(const char *directory, t_env *env);
 void					ft_sort_files(t_env *env);
 void					ft_destroy_them_all(t_env *env);
+void					ft_print_total(t_file *file);
 void					ft_print_output(t_env *env);
 void					ft_option_l(t_env *env);
 void					ft_lets_go(t_env *env);
+void					ft_reset_space(t_option *option);
+void					ft_space(t_env *env);
+void					ft_print_symbol(t_env *env);
+
 #endif

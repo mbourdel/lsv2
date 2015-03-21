@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/17 10:07:07 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/19 14:47:04 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/21 16:56:11 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,31 @@ static char		*ft_group(gid_t gid)
 
 static void		ft_print_ls_l(t_env *env, t_long lol)
 {
-	int		nb;
+	size_t		nb;
 
 	nb = (env->option.max.len_link - ft_intlen(env->file->stat.st_nlink) + 2);
 	ft_putstr(lol.right);
 	while (nb--)
 		ft_putchar(' ');
 	ft_putstr(lol.nb);
-	ft_putstr(" ");
+	ft_putchar(' ');
 	ft_putstr(lol.uid);
-	ft_putstr("  ");
+	nb = (env->option.max.len_uid - ft_strlen(lol.uid) + 2);
+	while (nb--)
+	ft_putchar(' ');
 	ft_putstr(lol.gid);
+	nb = (env->option.max.len_gid - ft_strlen(lol.gid));
+	while (nb--)
+		ft_putchar(' ');
 	nb = (env->option.max.len_size - ft_intlen(env->file->stat.st_size) + 2);
 	while (nb--)
 		ft_putchar(' ');
 	ft_putstr(lol.size);
 	ft_putstr(lol.date);
-	ft_putstr(" ");
-	ft_putendl(env->file->name);
+	ft_putchar(' ');
+	ft_putstr(env->file->name);
+	lol.right[0] == 'l' ? (ft_print_symbol(env)) : 0;
+	ft_putchar('\n');
 	return ;
 }
 
@@ -93,6 +100,7 @@ void			ft_option_l(t_env *env)
 	t_file		*tmp;
 
 	tmp = env->file;
+	ft_print_total(env->file);
 	while (env->file != NULL)
 	{
 		pwuid = getpwuid(env->file->stat.st_uid);
@@ -112,5 +120,4 @@ void			ft_option_l(t_env *env)
 		env->file = env->file->nxt;
 	}
 	env->file = tmp;
-	return ;
 }

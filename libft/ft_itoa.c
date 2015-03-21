@@ -5,38 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/06 19:35:36 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/02/07 15:25:42 by mbourdel         ###   ########.fr       */
+/*   Created: 2015/03/21 13:15:09 by mbourdel          #+#    #+#             */
+/*   Updated: 2015/03/21 14:49:56 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
 char		*ft_itoa(int n)
 {
-	char	buff[22];
-	char	*str;
-	int		i;
-	int		ntmp;
+	char	*res;
+	size_t	int_len;
 
-	i = 0;
-	ntmp = n;
+	if (n <= INT_MIN || n >= INT_MAX)
+		return ((n <= INT_MIN) ? ft_strdup("INT_MIN") : ft_strdup("INT_MAX"));
+	int_len = ft_intlen(n);
+	res = ft_memalloc(int_len + 1);
 	if (n < 0)
-		ntmp = -n;
-	while (ntmp > 0)
 	{
-		buff[i++] = (ntmp % 10) + 48;
-		ntmp = ntmp / 10;
+		res[0] = '-';
+		n *= (-1);
 	}
-	if (n < 0)
-		buff[i++] = '-';
-	str = ft_memalloc((size_t)i + 1);
-	if (n < -2147483647 || n > 2147483646)
-		return (n < -2147483647 ? ft_strdup("-2147483648") :
-		ft_strdup("2147483647"));
-	else if (n == 0)
-		str[0] = '0';
-	while (--i >= 0)
-		str[ntmp++] = buff[i];
-	return (str);
+	if (n < 10)
+		res[--int_len] = (n + 48);
+	else
+	{
+		while (n > 0)
+		{
+			res[--int_len] = ((n % 10) + 48);
+			n = (n / 10);
+		}
+	}
+	return (res);
 }

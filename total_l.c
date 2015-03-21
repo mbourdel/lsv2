@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_intlen.c                                        :+:      :+:    :+:   */
+/*   total_l.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/19 13:51:51 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/21 13:40:28 by mbourdel         ###   ########.fr       */
+/*   Created: 2015/03/21 12:36:41 by mbourdel          #+#    #+#             */
+/*   Updated: 2015/03/21 14:57:28 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_ls.h"
 
-size_t			ft_intlen(int nbr)
+void		ft_print_total(t_file *file)
 {
-	size_t		i;
+	int		total;
+	char	*tmp;
 
-	i = 1;
-	if (nbr < 0)
+	total = 0;
+	while (file != NULL)
 	{
-		i++;
-		nbr *= (-1);
+		total += (int)file->stat.st_blocks;
+		file = file->nxt;
 	}
-	while (nbr >= 10)
-	{
-		i++;
-		nbr = (nbr / 10);
-	}
-	return (i);
+	tmp = ft_itoa(total);
+	ft_putstr("total ");
+	ft_putendl(tmp);
+	free(tmp);
+	return ;
 }

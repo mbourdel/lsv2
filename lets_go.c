@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 16:47:30 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/19 14:36:32 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/21 16:26:31 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static int		ft_put_one_file(t_env *env)
 	{
 		tmp2 = ft_strjoin(env->lst_dir->name, "/");
 		tmp = ft_strjoin(tmp2, nfile->name);
-		if ((stat(tmp, &nfile->stat)) == -1)
-			ft_error(NULL);
+		((lstat(tmp, &nfile->stat)) == -1) ? ft_error(NULL) : 0;
 		free(tmp);
 		free(tmp2);
 	}
@@ -47,21 +46,13 @@ static void		ft_get_the_files(t_env *env)
 	int			dot;
 
 	env->file = NULL;
-	env->option.max.len_link = 0;
-	env->option.max.len_size = 0;
+	ft_reset_space(&env->option);
 	while ((dot = ft_put_one_file(env)) != 0)
 	{
 		if ((env->file == NULL) && !dot)
 			return ;
 		if (dot == 1)
-		{
-			dot = ft_intlen(env->file->stat.st_nlink);
-			if (env->option.max.len_link < dot)
-				env->option.max.len_link = dot;
-			dot = ft_intlen(env->file->stat.st_size);
-			if (env->option.max.len_size < dot)
-				env->option.max.len_size = dot;
-		}
+			ft_space(env);
 	}
 	return ;
 }

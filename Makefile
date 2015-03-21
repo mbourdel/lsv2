@@ -6,14 +6,14 @@
 #    By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/03/07 15:27:28 by mbourdel          #+#    #+#              #
-#    Updated: 2015/03/17 11:29:39 by mbourdel         ###   ########.fr        #
+#    Updated: 2015/03/21 16:22:11 by mbourdel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ls
 
 SRC = ft_ls.c option.c list.c error.c lets_go.c sort_files.c ls_output.c
-SRC += ls_opt_l.c destroy.c
+SRC += ls_opt_l.c destroy.c total_l.c space.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -62,3 +62,5 @@ deslib:
 	@cd $(LIBFT_PATH); $(MAKE) fclean -f Makefile
 
 total: deslib re
+
+destruction: deslib fclean
