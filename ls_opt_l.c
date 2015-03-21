@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/17 10:07:07 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/21 17:01:00 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/21 18:40:22 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,29 @@ static char		*ft_date(time_t sec)
 	char		*tmp;
 	int			i;
 
-	i = 0;
-	res = ft_memalloc(13);
+	i = (-1);
+	res = ft_memalloc(14);
 	tmp = ctime(&sec);
-	while (i < 13)
+	if ((sec + 15552000) <= time(NULL) || time(NULL) < sec)
 	{
-		res[i] = tmp[i + 3];
-		i++;
+		while (++i < 4)
+			res[i] = tmp[i + 3];
+		while (i < 8)
+		{
+			res[i] = tmp[i + 3];
+			i++;
+		}
+		while (i < 12)
+		{
+			res[i] = tmp[i + 11];
+			i++;
+		}
+		res[i++] = ' ';
 	}
+	if (!(i > 0))
+		while (++i < 13)
+			res[i] = tmp[i + 3];
+	res[i] = ' ';
 	return (res);
 }
 
@@ -86,7 +101,6 @@ static void		ft_print_ls_l(t_env *env, t_long lol)
 		ft_putchar(' ');
 	ft_putstr(lol.size);
 	ft_putstr(lol.date);
-	ft_putchar(' ');
 	ft_putstr(env->file->name);
 	lol.right[0] == 'l' ? (ft_print_symbol(env)) : 0;
 	ft_putchar('\n');
