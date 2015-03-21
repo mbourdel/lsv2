@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/17 10:07:07 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/21 16:56:11 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/21 17:01:00 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void		ft_print_ls_l(t_env *env, t_long lol)
 	ft_putstr(lol.uid);
 	nb = (env->option.max.len_uid - ft_strlen(lol.uid) + 2);
 	while (nb--)
-	ft_putchar(' ');
+		ft_putchar(' ');
 	ft_putstr(lol.gid);
 	nb = (env->option.max.len_gid - ft_strlen(lol.gid));
 	while (nb--)
@@ -90,7 +90,6 @@ static void		ft_print_ls_l(t_env *env, t_long lol)
 	ft_putstr(env->file->name);
 	lol.right[0] == 'l' ? (ft_print_symbol(env)) : 0;
 	ft_putchar('\n');
-	return ;
 }
 
 void			ft_option_l(t_env *env)

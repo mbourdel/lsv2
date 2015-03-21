@@ -6,19 +6,15 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 10:39:54 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/21 16:52:42 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/21 17:18:42 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#if ((defined __APPLE__) && (!defined FT_LS_H))
-# define MTIME st_mtimespec.tv_sec
-# include <uuid/uuid.h>
-#elif ((defined __linux) && (!defined FT_LS_H))
-# define MTIME st_mtime
-#endif
-
 #ifndef FT_LS_H
 # define FT_LS_H
+
+# define MTIME st_mtimespec.tv_sec
+# include <uuid/uuid.h>
 
 # include "libft/libft.h"
 # include <sys/types.h>
