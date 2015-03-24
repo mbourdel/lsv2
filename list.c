@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 15:31:25 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/19 16:01:03 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/24 14:18:15 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void		ft_sort_directory(t_env *env)
 				if (ft_strcmp(tmp->name, nxt->name) > 0 && (!env->option.r1 ||
 							tmp->err))
 					ft_lst_swap(&tmp, &nxt);
-				if (ft_strcmp(tmp->name, nxt->name) < 0 && env->option.r1 &&
-							!tmp->err)
+				if (ft_strcmp(tmp->name, nxt->name) < 0 &&
+						(env->option.r1 && !tmp->err))
 					ft_lst_swap(&tmp, &nxt);
 			}
 			else if (!tmp->err && nxt->err)
@@ -81,7 +81,8 @@ static void		ft_sort_t(t_env *env)
 		nxt = tmp->nxt;
 		while (nxt)
 		{
-			if (!tmp->err && !nxt->err)
+			if ((!tmp->err && !nxt->err) ||
+					(tmp->err == ENOTDIR && nxt->err == ENOTDIR))
 			{
 				if (ft_time(tmp->name, nxt->name) > 0 && !env->option.r1)
 					ft_lst_swap(&tmp, &nxt);
@@ -105,7 +106,10 @@ void			ft_lst_directory(const char *directory, t_env *env)
 	lst_dir->nxt = env->lst_dir;
 	lst_dir->name = ft_strdup(directory);
 	if (!(lol = opendir(directory)))
-		lst_dir->err = 1;
+	{
+		if (errno != EACCES)
+			lst_dir->err = errno;
+	}
 	else
 		closedir(lol);
 	env->lst_dir = lst_dir;

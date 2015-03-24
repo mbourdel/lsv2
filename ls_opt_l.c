@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/17 10:07:07 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/21 18:40:22 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/24 10:45:05 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,14 @@ static char		*ft_date(time_t sec)
 	tmp = ctime(&sec);
 	if ((sec + 15552000) <= time(NULL) || time(NULL) < sec)
 	{
-		while (++i < 4)
+		while (++i < 8)
 			res[i] = tmp[i + 3];
-		while (i < 8)
-		{
-			res[i] = tmp[i + 3];
-			i++;
-		}
-		while (i < 12)
+		res[i++] = ' ';
+		while (i < 13)
 		{
 			res[i] = tmp[i + 11];
 			i++;
 		}
-		res[i++] = ' ';
 	}
 	if (!(i > 0))
 		while (++i < 13)

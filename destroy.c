@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/16 10:38:38 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/17 18:45:36 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/24 12:39:16 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void			ft_destroy_them_all(t_env *env)
 	free(env->lst_dir->name);
 	free(env->lst_dir);
 	env->lst_dir = tmp;
-	ft_destroy_file(env);
+	if (env->file != NULL)
+		ft_destroy_file(env);
 	return ;
 }

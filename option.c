@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 11:44:18 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/19 16:18:47 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/24 10:53:19 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,24 @@ void			ft_seek_option(t_env *env, int ac, char **av)
 	int			i;
 
 	ft_init_option(&env->option);
-	if (ac == 1)
-		env->option.no = 1;
 	i = 1;
-	ac--;
-	while (av[i] && ac)
+	if (ac-- != 1)
 	{
-		if (av[i][0] == '-' && !env->option.no && av[i][1])
-			ft_which_one(av[i], &env->option);
-		else
+		while (av[i] && ac)
 		{
-			env->option.no = 1;
-			ft_lst_directory(av[i], env);
+			if (av[i][0] == '-' && !env->option.no && av[i][1])
+				ft_which_one(av[i], &env->option);
+			else
+			{
+				env->option.no = 1;
+				ft_lst_directory(av[i], env);
+			}
+			ac--;
+			i++;
 		}
-		ac--;
-		i++;
 	}
+	else
+		env->option.no = 1;
 	if (env->lst_dir == NULL)
 		ft_lst_directory(".", env);
 	return ;

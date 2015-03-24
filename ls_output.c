@@ -6,7 +6,7 @@
 /*   By: mbourdel <mbourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/16 10:25:36 by mbourdel          #+#    #+#             */
-/*   Updated: 2015/03/19 09:56:26 by mbourdel         ###   ########.fr       */
+/*   Updated: 2015/03/24 12:40:48 by mbourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,15 @@ void		ft_print_output(t_env *env)
 		ft_putendl(":");
 		save = 1;
 	}
-	if (env->option.r2)
-		ft_print_r(env);
-	else if (env->option.l)
-		ft_print_l(env);
-	else
-		ft_print_nm(env);
+	if (env->file != NULL)
+	{
+		if (env->option.r2)
+			ft_print_r(env);
+		else if (env->option.l)
+			ft_print_l(env);
+		else
+			ft_print_nm(env);
+	}
 	if (env->lst_dir->nxt != NULL)
 		ft_putchar('\n');
 	ft_destroy_them_all(env);
